@@ -4,7 +4,7 @@
 #include "Setup.h"
 
 
-CCamera::CCamera(CSetup* Passed_Setup, float *Passed_CamX, float *Passed_CamY, int *Passed_SpriteX, int *Passed_SpriteY, int *Passed_SpriteVx, int *Passed_SpriteVy, int *Passed_SpriteWidth, int *Passed_SpriteHeight, int *Passed_LvWidth, int *Passed_LvHeight, int *Passed_ScreenWidth, int *Passed_ScreenHeight)
+CCamera::CCamera(CSetup* Passed_Setup, float *Passed_CamX, float *Passed_CamY, int *Passed_SpriteX, int *Passed_SpriteY, int *Passed_SpriteVx, int *Passed_SpriteVy, int *Passed_SpriteWidth, int *Passed_SpriteHeight, int *Passed_ScreenWidth, int *Passed_ScreenHeight, int *Passed_LvWidth, int *Passed_LvHeight)
 {
 	csetup = Passed_Setup;
 
@@ -13,6 +13,9 @@ CCamera::CCamera(CSetup* Passed_Setup, float *Passed_CamX, float *Passed_CamY, i
 
 	ScreenWidth = Passed_ScreenWidth;
 	ScreenHeight = Passed_ScreenHeight;
+	MidScreenWidth = *ScreenWidth / 2;
+	MidScreenHeight = *ScreenHeight / 2;
+
 	LvWidth = Passed_LvWidth;
 	LvHeight = Passed_LvHeight;
 
@@ -23,8 +26,8 @@ CCamera::CCamera(CSetup* Passed_Setup, float *Passed_CamX, float *Passed_CamY, i
 	SpriteWidth = Passed_SpriteWidth;
 	SpriteHeight = Passed_SpriteHeight;
 
-	//tile = new CSprite(csetup->GetRenderer(), "Tiles/test.bmp", 0, 0, *LvWidth, *LvHeight, CamX, CamY);
-	tile = new CSprite(csetup->GetRenderer(), "Tiles/test.bmp", 0, 0, *LvWidth, *LvHeight);
+	//tile = new CSprite(csetup->GetRenderer(), "Tiles/test.bmp", 0, 0, *LvWidth, *LvHeight);
+	tile = new CSprite(csetup->GetRenderer(), "Tiles/rm1.png", 0, 0, *LvWidth, *LvHeight);
 }
 
 
@@ -45,11 +48,11 @@ void CCamera::Draw()
 void CCamera::Update()
 {
 	//Scrolling to follow character
-	if ((*SpriteX > 199 && -*CamX < (*LvWidth - *ScreenWidth)) || (*SpriteX < 200 && -*CamX > 0))
+	if ((*SpriteX > (MidScreenWidth - 1) && -*CamX < (*LvWidth - *ScreenWidth)) || (*SpriteX < MidScreenWidth && -*CamX > 0))
 	{
 		*CamX = *CamX - *SpriteVx;
 	}
-	if ((*SpriteY > 199 && -*CamY < (*LvHeight - *ScreenHeight)) || (*SpriteY < 200 && -*CamY > 0))
+	if ((*SpriteY > (MidScreenHeight - 1) && -*CamY < (*LvHeight - *ScreenHeight)) || (*SpriteY < MidScreenHeight && -*CamY > 0))
 	{
 		*CamY = *CamY - *SpriteVy;
 	}

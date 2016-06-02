@@ -12,6 +12,7 @@ CMain::CMain(int PassedScreenWidth, int PassedScreenHeight, int PassedLvWidth, i
 
 	ScreenWidth = PassedScreenWidth;
 	ScreenHeight = PassedScreenHeight;
+
 	LvWidth = PassedLvWidth;
 	LvHeight = PassedLvHeight;
 	
@@ -21,8 +22,8 @@ CMain::CMain(int PassedScreenWidth, int PassedScreenHeight, int PassedLvWidth, i
 	csetup = new CSetup(&quit, ScreenWidth, ScreenHeight);
 
 	chara = new Chara(csetup, &SpriteX, &SpriteY, &SpriteVx, &SpriteVy, &SpriteWidth, &SpriteHeight, &CamX, &CamY, &ScreenWidth, &ScreenHeight, &LvWidth, &LvHeight);
-	camera = new CCamera(csetup, &CamX, &CamY, &SpriteX, &SpriteY, &SpriteVx, &SpriteVy, &SpriteWidth, &SpriteHeight, &LvWidth, &LvHeight, &ScreenWidth, &ScreenHeight);
-
+	camera = new CCamera(csetup, &CamX, &CamY, &SpriteX, &SpriteY, &SpriteVx, &SpriteVy, &SpriteWidth, &SpriteHeight, &ScreenWidth, &ScreenHeight, &LvWidth, &LvHeight);
+	Rm1 = new CEnvironment(csetup, &CamX, &CamY, &LvWidth, &LvHeight);
 }
 
 CMain::~CMain(void)
@@ -30,6 +31,7 @@ CMain::~CMain(void)
 	delete csetup;
 	delete camera;
 	delete chara;
+	delete Rm1;
 }
 
 void CMain::GameLoop()
@@ -39,17 +41,15 @@ void CMain::GameLoop()
 		csetup->Begin();
 
 		camera->Draw();
+
+		Rm1->DrawBack();
+
 		chara->Draw();
-
-		//CamX = -SpriteX + (0.5 * ScreenWidth);
-		//CamY = -SpriteY + (0.5 * ScreenHeight);
-
-		/*if (CamX >= LvWidth)
-		{
-			CamX = LvWidth - (0.5 * ScreenWidth);
-		}*/
-
 		chara->Update();
+		
+		Rm1->DrawFront();
+		Rm1->Update();
+
 		camera->Update();
 
 		

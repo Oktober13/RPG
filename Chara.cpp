@@ -20,6 +20,9 @@ Chara::Chara(CSetup* Passed_Setup, int *Passed_SpriteX, int *Passed_SpriteY, int
 
 	ScreenWidth = Passed_ScreenWidth;
 	ScreenHeight = Passed_ScreenHeight;
+	MidScreenWidth = *ScreenWidth / 2;
+	MidScreenHeight = *ScreenHeight / 2;
+
 	LvWidth = Passed_LvWidth;
 	LvHeight = Passed_LvHeight;
 
@@ -97,41 +100,37 @@ void Chara::Update()
 
 
 	//If the sprite is walking near the end of a room- eg: Camera is not scrolling, activates sprite "walking"
-	if ((character->GetX() <= 200 && *CamX == 0) || (character->GetX() >= 200 && *CamX <= -(*LvWidth - *ScreenWidth)))
+	if ((*SpriteX <= (MidScreenWidth + 5) && *CamX == 0) || (*SpriteX >= (MidScreenWidth - 5) && *CamX <= -(*LvWidth - *ScreenWidth)))
 	{
 		character->SetX(*SpriteX + *SpriteVx);
 	}
 
-	if ((character->GetY() <= 200 && *CamY == 0) || (character->GetY() >= 200 && *CamY <= -(*LvHeight - *ScreenHeight)))
+	if ((*SpriteY <= (MidScreenHeight + 5) && *CamY == 0) || (*SpriteY >= (MidScreenHeight - 5) && *CamY <= -(*LvHeight - *ScreenHeight)))
 	{
 		character->SetY(*SpriteY + *SpriteVy);
 	}
 
-	//if ((*SpriteY <= 200) && (*CamY == 0))
-	//{
-	//	character->SetY(*SpriteY + *SpriteVy);
-	//}
 
 	//If the sprite is walking in the middle of a room- eg: the Camera IS scrolling. This prevents the sprite from walking "off screen."
-	if ((*SpriteX > 200) && *CamX < -(*LvWidth - *ScreenWidth))
+	if ((*SpriteX > MidScreenWidth) && *CamX < -(*LvWidth - *ScreenWidth))
 	{
-		character->SetX(200);
+		character->SetX(MidScreenWidth);
 	}
-	if ((*SpriteY > 200) && *CamY < -(*LvHeight - *ScreenHeight))
+	if ((*SpriteY > MidScreenHeight) && *CamY < -(*LvHeight - *ScreenHeight))
 	{
-		character->SetY(200);
+		character->SetY(MidScreenHeight);
 	}
 
 	//If the sprite went too far to the left or right
-	if ((character->GetX() < 0) || (character->GetX() + *SpriteWidth > *LvWidth))
+	if ((*SpriteX < 0 && *SpriteVx < 0) || ((*SpriteX + *SpriteWidth) > *ScreenWidth && *SpriteVx > 0))
 	{
 		character->SetX(*SpriteX -= *SpriteVx);
-		//std::cout << character->GetX() << std::endl;
 	}
-	if ((character->GetY() < 0) || (character->GetY() + *SpriteHeight > *LvHeight))
+	if ((*SpriteY < 0 && *SpriteVy < 0) || (*SpriteY + *SpriteHeight > *ScreenHeight && *SpriteVy > 0))
 	{
 		character->SetY(*SpriteY -= *SpriteVy);
 	}
+	//std::cout << *CamX + 400 << std::endl;
 }
 
 void Chara::Draw()

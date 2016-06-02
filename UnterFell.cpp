@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
 
-	CMain* cmain = new CMain(1000, 800, 1500,1500);
+	CMain* cmain = new CMain(1000, 800, 6135, 1300);
 	cmain->GameLoop();
 	delete cmain;
 

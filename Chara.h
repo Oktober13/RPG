@@ -14,7 +14,6 @@ public:
 	void Draw();
 
 private:
-
 	CSetup* csetup;
 
 	CSprite* character;
@@ -32,6 +31,9 @@ private:
 
 	int *ScreenWidth;
 	int *ScreenHeight;
+	int MidScreenWidth;
+	int MidScreenHeight;
+
 	int *LvWidth;
 	int *LvHeight;
 

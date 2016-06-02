@@ -3,6 +3,7 @@
 #include "Sprite.h"
 #include "Camera.h"
 #include "Chara.h"
+#include "Environment.h"
 
 class CMain
 {
@@ -28,6 +29,7 @@ private:
 
 	int ScreenWidth;
 	int ScreenHeight;
+
 	int LvWidth;
 	int LvHeight;
 
@@ -35,10 +37,12 @@ private:
 	int SpriteHeight;
 
 	CSprite* character;
-	CSprite* tile;
+	//CSprite* tile;
 
 	Chara *chara;
 	CCamera *camera;
+
+	CEnvironment *Rm1;
 
 	CSetup* csetup;
 };
