@@ -5,7 +5,7 @@
 CSetup::CSetup(bool* quit, int ScreenWidth, int ScreenHeight)
 {
 	window = NULL;
-	window = SDL_CreateWindow("Load_Screen", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow("Unterfell", 100, 100, ScreenWidth, ScreenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
 	if (window == NULL)
 	{
